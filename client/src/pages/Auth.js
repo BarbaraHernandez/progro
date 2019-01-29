@@ -100,6 +100,8 @@ class Register extends Component {
       <Container fluid>
         <Row>
           <Col size="md-4">
+          </Col>
+          <Col size="md-4">
             <Jumbotron>
               <h1>Step Up</h1>
             </Jumbotron>
@@ -156,6 +158,7 @@ class Register extends Component {
                 <Button type="submit" className="btn btn-primary">
                   {this.state.register ? "Register" : "Login"}
                 </Button>
+                <div>
                 <Button
                   type="button"
                   className="btn btn-link"
@@ -163,6 +166,7 @@ class Register extends Component {
                 >
                   {this.state.register ? "Already have an account?" : "Need to register?"}
                 </Button>
+                </div>
               </Form>
             )}
           </Col>

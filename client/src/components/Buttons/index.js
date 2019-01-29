@@ -30,3 +30,27 @@ export function DropDownBtn(props) {
         </div>
     );
 }
+
+export function EditBtn(props) {
+  return (
+    <span className="btn" {...props}>
+    edit
+    </span>
+  );
+}
+
+export function RoleDropBtn(props) {
+  return (
+    <div className="dropdown" {...props}>
+            <button
+                className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Options
+  </button>
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a className="dropdown-item" href="#">edit</a>
+                <a className="dropdown-item" href="#">delete</a>
+                <a className="dropdown-item" href="#">applicants</a>
+            </div>
+        </div>
+  );
+}

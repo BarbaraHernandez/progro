@@ -14,7 +14,9 @@ class LiveProjects extends Component {
         <Navigation ></Navigation>
         <Container fluid>
           <Row>
-            <Col size="md-9">
+          <Col size="md-2">
+          </Col>
+            <Col size="md-8">
             <Card >
               <List >
                 This is where the projects info will populate
