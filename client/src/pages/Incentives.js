@@ -43,11 +43,11 @@ class Incentives extends Component {
     API.getUser(userId)
       .then(res => {
         let userCredits = res.data.hoursEarned - res.data.hoursRedeemed;
-        console.log("credits: " + userCredits);
         this.setState({
           credits: userCredits,
           redeemedTotal: res.data.hoursRedeemed
         });
+        //this is updating in the database but not on the dom.
       })
       .catch(err => console.log(err));
   };
@@ -99,10 +99,9 @@ class Incentives extends Component {
       }
       API.redeemIncentive(record)
         .then(res => {
-          console.log("user:" + this.state.user.id);
           let update = {
             id: this.state.user.id,
-            hoursRedeemed: this.redeemedTotal + this.cost
+            hoursRedeemed: this.state.redeemedTotal + this.state.cost
           }
           API.updateUser(update)
         })
