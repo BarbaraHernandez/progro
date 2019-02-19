@@ -221,49 +221,6 @@ class UserProfile extends Component {
                       </div>
                     </Col>
                   </Row>
-<<<<<<< HEAD
-                  <Row>
-                    <Col size="lg-12 md-12">
-                      <table className="table table-hover days">
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Start Date</th>
-                            <th scope="col">M</th>
-                            <th scope="col">T</th>
-                            <th scope="col">W</th>
-                            <th scope="col">Th</th>
-                            <th scope="col">F</th>
-                            <th scope="col">S</th>
-                            <th scope="col">Sn</th>
-                            <th scope="col">Project</th>
-                            <th scope="col">Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {this.state.timesheets.map((timesheet, index) => (
-                            <tr key={timesheet.id}>
-                              <th scope="row">{index + 1}</th>
-                              <td>{timesheet.start}</td>
-                              <td>{timesheet.monday}</td>
-                              <td>{timesheet.tuesday}</td>
-                              <td>{timesheet.wednesday}</td>
-                              <td>{timesheet.thursday}</td>
-                              <td>{timesheet.friday}</td>
-                              <td>{timesheet.saturday}</td>
-                              <td>{timesheet.sunday}</td>
-                              <td>TBD</td>
-                              <td>Submitted</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </Col>
-                  </Row>
-                  <button type="button" className="btn blue-btn" data-toggle="modal" data-target="#exampleModalCenter">
-                    Add Timesheet
-                  </button>
-=======
                   {this.state.user.id == this.state.id &&
                     <>
                       <Row>
@@ -309,7 +266,6 @@ class UserProfile extends Component {
                       </button>
                     </>
                   }
->>>>>>> master
                 </Card>
               </div>
             </Col>
