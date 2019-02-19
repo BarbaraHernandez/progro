@@ -190,7 +190,7 @@ class UserProfile extends Component {
                   </Row>
                   <Row>
                     <Col size="lg-12 md-12">
-                      <table className="table table-hover">
+                      <table className="table table-hover days">
                         <thead>
                           <tr>
                             <th scope="col">#</th>
