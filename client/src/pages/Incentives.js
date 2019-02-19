@@ -23,6 +23,7 @@ class Incentives extends Component {
 
   componentDidMount() {
     this.loadIncentives();
+    this.loadCredits(this.state.user.id);
   }
 
   loadIncentives = () => {
@@ -30,8 +31,10 @@ class Incentives extends Component {
       .then(res => {
         // let activeIncentives = res.data.filter(incentive => incentive.Status.description === 'Active');
         let activeIncentives = res.data;
-        this.setState({ incentives: activeIncentives });
-        this.loadCredits(this.state.user.id)
+        this.setState({
+          incentives: activeIncentives
+         });
+
       })
       .catch(err => console.log(err));
   };
@@ -40,6 +43,7 @@ class Incentives extends Component {
     API.getUser(userId)
       .then(res => {
         let userCredits = res.data.hoursEarned - res.data.hoursRedeemed;
+        console.log("credits: " + userCredits);
         this.setState({
           credits: userCredits,
           redeemedTotal: res.data.hoursRedeemed
@@ -96,9 +100,10 @@ class Incentives extends Component {
       API.redeemIncentive(record)
         .then(res => {
           let update = {
-            id: this.state.user,
+            id: this.state.user.id,
             hoursRedeemed: this.redeemedTotal + this.cost
           }
+          console.log(this.state.user.id);
           API.updateUser(update)
         })
         .then(res => {
@@ -119,16 +124,18 @@ class Incentives extends Component {
             <Col size="md-8">
               <div id="incentives-div">
                 <Card>
-                  <div className="top-right-drop">
-                    <DropDown>
-                      <DropDownBtn
-                        data-toggle="modal"
-                        data-target="#createincentive"
-                      >
-                        <p>Add New</p>
-                      </DropDownBtn>
-                    </DropDown>
-                  </div>
+                  {this.state.user.permissionID == (2 || 3) &&
+                    <div className="top-right-drop">
+                      <DropDown>
+                        <DropDownBtn
+                          data-toggle="modal"
+                          data-target="#createincentive"
+                        >
+                          <p>Add New</p>
+                        </DropDownBtn>
+                      </DropDown>
+                    </div>
+                  }
                   <div className="modal fade" id="createincentive" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog" role="document">
                       <div className="modal-content">
@@ -186,7 +193,7 @@ class Incentives extends Component {
                       </div>
                     </div>
                   </div>
-                  <h3>Hours: {this.credits} </h3>
+                  <h3>Hours: {this.state.credits} </h3>
                   <p >Apply your credits by selecting an incentive and hitting submit.</p>
                   <div id="available-incentives-box">
                     <Form>
@@ -201,25 +208,26 @@ class Incentives extends Component {
                                   </Col>
                                   <Col size="md-6">
                                     <div>
-                                      <DropDown>
-                                        {/* <DropDownBtn
-                                        // needs edit modal
-                                        >
-                                          <p>edit</p>
-                                        </DropDownBtn> */}
-                                        <DropDownBtn
-                                          onClick={() => this.removeIncentive(incentive.id)}
-                                        >
-                                          <p>remove</p>
-                                        </DropDownBtn>
-                                        <DropDownBtn
-                                        // needs on click to render all redeemed
-                                        >
-                                          <p>see history</p>
-                                        </DropDownBtn>
-                                      </DropDown>
+                                      {this.state.user.permissionID == (2 || 3) &&
+                                        <DropDown>
+                                          {/* <DropDownBtn
+                                          // needs edit modal
+                                          >
+                                            <p>edit</p>
+                                          </DropDownBtn> */}
+                                          <DropDownBtn
+                                            onClick={() => this.removeIncentive(incentive.id)}
+                                          >
+                                            <p>Remove</p>
+                                          </DropDownBtn>
+                                          {/* <DropDownBtn
+                                          // needs on click to render all redeemed
+                                          >
+                                            <p>See History</p>
+                                          </DropDownBtn> */}
+                                        </DropDown>
+                                      }
                                     </div>
-
                                   </Col>
                                 </Row>
                                 <div className="main-content">
@@ -235,8 +243,9 @@ class Incentives extends Component {
                                     type="checkbox"
                                     name="selected"
                                     id={incentive.id}
-                                    value={incentive.id}
+                                    value={this.state.selected}
                                     aria-label="select this"
+                                    // onChange={() => this.handleInputChange}
                                     onClick={() => this.handleSelect(incentive)}
                                   />
                                 </div>

@@ -466,7 +466,7 @@ body {
             text-align: center;
             margin-top: 1rem;
         }
-        
+
         .cost {
             position: absolute;
             left: 1rem;
@@ -476,6 +476,7 @@ body {
         }
 
         .main-content {
+<<<<<<< HEAD
             position: relative;
 
             @include phone {
@@ -484,6 +485,16 @@ body {
                 padding-bottom: 1.25rem;
             }
         }
+=======
+          position: relative;
+
+          @include phone {
+              position: relative;
+              top: 0;
+              padding-bottom: 1.25rem;
+          }
+      }
+>>>>>>> master
 
         .none-listed {
             color: color(neutral-dark);
