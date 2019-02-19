@@ -16,7 +16,7 @@ $colors: (
     @return map-get($colors, $color-name)
 };
 
-$mobile: 800px;
+$mobile: 900px;
 $phone: 480px;
 
 @mixin mobile {
@@ -84,10 +84,10 @@ body {
         border-radius: .25rem !important;
     }
 
-    // .edit-modal:hover {
-    //   position: relative;
-    //   z-index: auto;
-    // }
+    .nav-logo {
+        width: 1.5rem;
+        margin-right: .5rem;
+    }
 
     .bottom-art {
         width: 100%;
@@ -145,21 +145,35 @@ body {
         box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
         border-radius: .25rem;
 
+        th {
+            @include mobile {
+                padding: .1rem;
+                font-size: .75rem;
+            }
+        }
+
+        td {
+            @include mobile {
+                padding: .1rem;
+                font-size: .75rem;
+            }
+        }
+
         #profile-info-div {
             position: relative;
 
             h1 {
                 color: color(primary);
-                font-size: 1.75rem;
+                font-size: 1.5rem;
                 font-weight: 500;
                 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
                 line-height: .8;
                 text-align: center;
                 background-color: white;
-                width: 15rem;
+                width: 13rem;
                 position: absolute;
-                bottom: 6rem;
-                padding: .3rem 0;
+                bottom: 5rem;
+                padding: .4rem 0;
             }
             h2 {
                 color: color(darkest);
@@ -183,12 +197,12 @@ body {
             .user-name-box {
                 background-color: color(tertiary);
                 border-radius: 50%;
-                width: 15rem;
-                height: 15rem;
+                width: 13rem;
+                height: 13rem;
                 margin: 1rem auto;
             }
             .profile-logo {
-                height: 15rem;
+                height: 13rem;
             }
             }
         #profile-project-div {

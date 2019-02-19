@@ -52,6 +52,11 @@ body .my-list-item {
   border-radius: .25rem !important;
 }
 
+body .nav-logo {
+  width: 1.5rem;
+  margin-right: .5rem;
+}
+
 body .bottom-art {
   width: 100%;
   position: fixed;
@@ -68,7 +73,7 @@ body #login-logo {
   z-index: -2;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   body #login-logo {
     position: fixed;
     top: 1rem;
@@ -115,22 +120,36 @@ body #dash-card {
   border-radius: .25rem;
 }
 
+@media (max-width: 900px) {
+  body #dash-card th {
+    padding: .1rem;
+    font-size: .75rem;
+  }
+}
+
+@media (max-width: 900px) {
+  body #dash-card td {
+    padding: .1rem;
+    font-size: .75rem;
+  }
+}
+
 body #dash-card #profile-info-div {
   position: relative;
 }
 
 body #dash-card #profile-info-div h1 {
   color: #0ca54d;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 500;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   line-height: .8;
   text-align: center;
   background-color: white;
-  width: 15rem;
+  width: 13rem;
   position: absolute;
-  bottom: 6rem;
-  padding: .3rem 0;
+  bottom: 5rem;
+  padding: .4rem 0;
 }
 
 body #dash-card #profile-info-div h2 {
@@ -148,13 +167,13 @@ body #dash-card #profile-info-div h3 {
 body #dash-card #profile-info-div .user-name-box {
   background-color: #bbf18f;
   border-radius: 50%;
-  width: 15rem;
-  height: 15rem;
+  width: 13rem;
+  height: 13rem;
   margin: 1rem auto;
 }
 
 body #dash-card #profile-info-div .profile-logo {
-  height: 15rem;
+  height: 13rem;
 }
 
 body #dash-card #profile-project-div {
