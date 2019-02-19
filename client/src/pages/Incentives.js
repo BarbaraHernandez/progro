@@ -94,16 +94,16 @@ class Incentives extends Component {
     event.preventDefault();
     if (this.state.selected) {
       let record = {
-        incentiveId: this.state.selected,
-        userID: this.state.user
+        incentiveID: this.state.selected,
+        userID: this.state.user.id
       }
       API.redeemIncentive(record)
         .then(res => {
+          console.log("user:" + this.state.user.id);
           let update = {
             id: this.state.user.id,
             hoursRedeemed: this.redeemedTotal + this.cost
           }
-          console.log(this.state.user.id);
           API.updateUser(update)
         })
         .then(res => {
@@ -124,7 +124,7 @@ class Incentives extends Component {
             <Col size="md-8">
               <div id="incentives-div">
                 <Card>
-                  {this.state.user.permissionID == (2 || 3) &&
+                  {this.state.user.permissionID === (2 || 3) &&
                     <div className="top-right-drop">
                       <DropDown>
                         <DropDownBtn
@@ -208,7 +208,7 @@ class Incentives extends Component {
                                   </Col>
                                   <Col size="md-6">
                                     <div>
-                                      {this.state.user.permissionID == (2 || 3) &&
+                                      {this.state.user.permissionID === (2 || 3) &&
                                         <DropDown>
                                           {/* <DropDownBtn
                                           // needs edit modal
