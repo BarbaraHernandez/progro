@@ -23,13 +23,15 @@ class Incentives extends Component {
 
   componentDidMount() {
     this.loadIncentives();
-  }
+  };
 
   loadIncentives = () => {
-    API.getIncentives()
+    API
+      .getIncentives()
       .then(res => {
         // let activeIncentives = res.data.filter(incentive => incentive.Status.description === 'Active');
         let activeIncentives = res.data;
+
         this.setState({ incentives: activeIncentives });
         this.loadCredits(this.state.user.id)
       })
@@ -37,9 +39,11 @@ class Incentives extends Component {
   };
 
   loadCredits = (userId) => {
-    API.getUser(userId)
+    API
+      .getUser(userId)
       .then(res => {
         let userCredits = res.data.hoursEarned - res.data.hoursRedeemed;
+
         this.setState({
           credits: userCredits,
           redeemedTotal: res.data.hoursRedeemed
@@ -49,33 +53,36 @@ class Incentives extends Component {
   };
 
   removeIncentive = (incentiveId) => {
-    API.updateIncentive({
-      id: incentiveId,
-      statusID: 13
-    })
-      .then(res => {
-        this.loadIncentives();
+    API
+      .updateIncentive({
+        id: incentiveId,
+        statusID: 13
       })
+      .then(() => this.loadIncentives())
       .catch(err => console.log(err));
   };
 
   createIncentive = event => {
     event.preventDefault();
+
     if (this.state.newTitle && this.state.newDescription && this.state.newPrice) {
       let newIncentive = {
         title: this.state.newTitle,
         description: this.state.newDescription,
         price: this.state.newPrice,
         statusID: 12
-      }
-      API.createIncentive(newIncentive)
-        .then(res => this.loadIncentives())
+      };
+
+      API
+        .createIncentive(newIncentive)
+        .then(() => this.loadIncentives())
         .catch(err => console.log(err));
-    }
+    };
   };
 
   handleInputChange = event => {
     const { name, value } = event.target;
+
     this.setState({ [name]: value });
   };
 
@@ -88,21 +95,25 @@ class Incentives extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+
     if (this.state.selected) {
       let record = {
-        incentiveId: this.state.selected,
-        userID: this.state.user
-      }
-      API.redeemIncentive(record)
-        .then(res => {
+        incentiveID: this.state.selected,
+        userID: this.state.user.id
+      };
+
+      API
+        .redeemIncentive(record)
+        .then(() => {
           let update = {
-            id: this.state.user,
-            hoursRedeemed: this.redeemedTotal + this.cost
-          }
-          API.updateUser(update)
-        })
-        .then(res => {
-          this.loadCredits();
+            id: this.state.user.id,
+            hoursRedeemed: this.state.redeemedTotal + this.state.cost
+          };
+
+          API
+            .updateUser(update)
+            .then(() => this.loadCredits())
+            .catch(err => console.log(err));
         })
         .catch(err => console.log(err));
     }
@@ -111,15 +122,14 @@ class Incentives extends Component {
   render() {
     return (
       <div>
-        <Navigation></Navigation>
+        <Navigation />
         <Container fluid>
           <Row>
-            <Col size="md-2">
-            </Col>
+            <Col size="md-2" />
             <Col size="md-8">
               <div id="incentives-div">
                 <Card>
-                  {this.state.user.permissionID == (2 || 3) &&
+                  {((this.state.user.permissionID === 2) || (this.state.user.permissionID === 3)) ?
                     <div className="top-right-drop">
                       <DropDown>
                         <DropDownBtn
@@ -130,7 +140,7 @@ class Incentives extends Component {
                         </DropDownBtn>
                       </DropDown>
                     </div>
-                  }
+                  : ''}
                   <div className="modal fade" id="createincentive" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog" role="document">
                       <div className="modal-content">
@@ -150,7 +160,7 @@ class Incentives extends Component {
                                 name="newTitle"
                                 value={this.state.newTitle}
                                 onChange={this.handleInputChange}
-                              ></Input>
+                              />
                               <Label htmfor="newIncentivePrice">Price</Label>
                               <Input
                                 type="text"
@@ -158,7 +168,7 @@ class Incentives extends Component {
                                 name="newPrice"
                                 value={this.state.newPrice}
                                 onChange={this.handleInputChange}
-                              ></Input>
+                              />
                               <Label htmfor="newIncentiveDescription">Description</Label>
                               <TextArea
                                 type="text"
@@ -167,11 +177,12 @@ class Incentives extends Component {
                                 rows="6"
                                 value={this.newDescription}
                                 onChange={this.handleInputChange}
-                              ></TextArea>
+                              />
                             </FormGroup>
                             <FormBtn
                               className="btn blue-btn"
                               type="submit"
+                              data-dismiss="modal" aria-label="Close"
                               onClick={this.createIncentive}
                             >
                               Submit
@@ -189,7 +200,7 @@ class Incentives extends Component {
                     </div>
                   </div>
                   <h3>Hours: {this.credits} </h3>
-                  <p >Apply your credits by selecting an incentive and hitting submit.</p>
+                  <p >Apply your credits by selecting an incentive and clicking submit.</p>
                   <div id="available-incentives-box">
                     <Form>
                       <FormGroup>
@@ -203,7 +214,7 @@ class Incentives extends Component {
                                   </Col>
                                   <Col size="md-6">
                                     <div>
-                                      {this.state.user.permissionID == (2 || 3) &&
+                                      {((this.state.user.permissionID === 2) || (this.state.user.permissionID === 3)) ?
                                         <DropDown>
                                           {/* <DropDownBtn
                                           // needs edit modal
@@ -221,7 +232,7 @@ class Incentives extends Component {
                                             <p>See History</p>
                                           </DropDownBtn>
                                         </DropDown>
-                                      }
+                                      : ''}
                                     </div>
                                   </Col>
                                 </Row>
@@ -253,6 +264,8 @@ class Incentives extends Component {
                       <FormBtn
                         className="btn blue-btn card-item-submit"
                         type="submit"
+                        data-dismiss="modal"
+                        aria-label="Close"
                         onClick={this.handleSubmit}
                       >
                         Submit
