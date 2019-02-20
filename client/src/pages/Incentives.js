@@ -270,7 +270,6 @@ class Incentives extends Component {
                         className='btn blue-btn card-item-submit'
                         type='submit'
                         data-dismiss='modal'
-                        aria-label='Close'
                         onClick={this.handleSubmit}
                       >
                         Submit
