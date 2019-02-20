@@ -38,13 +38,13 @@ class Incentives extends Component {
       .catch(err => console.log(err));
   };
 
-  loadCredits = (userId) => {
+  loadCredits = (userID) => {
     API
-      .getUser(userId)
+      .getUser(userID)
       .then(res => {
         let earned = res.data.hoursEarned;
         let redeemed = res.data.hoursRedeemed;
-        let userCredits = earned - redeemed;
+        let userCredits = (earned - redeemed < 0) ? 0 : earned - redeemed;
         // let redeemedCredits = res.data.hoursRedeemed;
         this.setState({
           credits: userCredits,
@@ -118,7 +118,7 @@ class Incentives extends Component {
 
           API
             .updateUser(update)
-            .then(() => this.loadCredits())
+            .then(() => this.loadCredits(this.state.user.id))
             .catch(err => console.log(err));
         })
         .catch(err => console.log(err));
