@@ -4,11 +4,11 @@
 [heroku](https://progro-demo.herokuapp.com/)
 ### Guest Logins:
 #### Manager View:
-e-mail: manager@test.com
-password: 7357password
+* e-mail: manager@test.com
+* password: 7357password
 #### Employee View:
-email: employee@test.com
-password: 7357password
+* email: employee@test.com
+* password: 7357password
 
 ## About Progro:
 ProGro empowers employees to bring their ideas to life, and companies to source innovation from within. Employees can post their ideas and vote on others. Companies can selectively endorse ideas, converting them to actionable projects. Employees volunteer for and contribute to projects, then redeem aggregated hours for incentives such as time off. With ProGro, everyone in your workplace has a voice.
@@ -50,8 +50,8 @@ To see the manager view, update the permissionID of the account to a 2.
 * bootstrap
 
 ## Development Team:
-[Barbara Hernandez](https://github.com/BarbaraHernandez/) - Build Manager
-[Nadine Hernandez](https://github.com/NadineHernandez) - Front-End UX/UI
-[Chris Human](https://github.com/chrishuman0923) - Database Engineer
-[Johnny King](https://github.com/JohnKing93) - Project Manager
+* [Barbara Hernandez](https://github.com/BarbaraHernandez/) - Build Manager
+* [Nadine Hernandez](https://github.com/NadineHernandez) - Front-End UX/UI
+* [Chris Human](https://github.com/chrishuman0923) - Database Engineer
+* [Johnny King](https://github.com/JohnKing93) - Project Manager
 
