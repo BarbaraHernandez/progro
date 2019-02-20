@@ -390,13 +390,13 @@ class ProjectDetail extends Component {
                                     {(this.state.user.id === this.state.project.ownerID && role.statusID === 4) &&
                                       <>
                                         <Button
-                                          className='btn blue-btn'
+                                          className="btn blue-btn btn-spacer"
                                           onClick={() => this.updateRole(role.id, 5)}
                                         >
                                           Close
                                         </Button>
                                         <Button
-                                          className='btn blue-btn'
+                                          className="btn blue-btn btn-spacer"
                                           onClick={() => this.deleteRole(role.id)}
                                         >
                                           Delete
@@ -405,7 +405,7 @@ class ProjectDetail extends Component {
                                     }
                                     {(this.state.user.id === this.state.project.ownerID && role.statusID === 5) &&
                                       <Button
-                                        className='btn blue-btn'
+                                        className="btn blue-btn btn-spacer"
                                         onClick={() => this.updateRole(role.id, 4)}
                                       >
                                         Open
@@ -413,7 +413,7 @@ class ProjectDetail extends Component {
                                     }
                                     {(this.state.user.id !== this.state.project.ownerID && role.usersStatus === 'Not Applied') &&
                                       <Button
-                                        className='btn blue-btn'
+                                        className="btn blue-btn btn-spacer"
                                         onClick={() => this.createRoleMember(role.id)}
                                       >
                                         Apply
@@ -421,7 +421,7 @@ class ProjectDetail extends Component {
                                     }
                                     {(this.state.user.id !== this.state.project.ownerID && role.usersStatus === 6) &&
                                       <Button
-                                        className='btn blue-btn'
+                                        className="btn blue-btn btn-spacer"
                                         onClick={() => this.deleteRoleMember(role.usersRoleMemberId)}
                                       >
                                         Cancel

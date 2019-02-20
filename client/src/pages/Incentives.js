@@ -42,11 +42,16 @@ class Incentives extends Component {
     API
       .getUser(userId)
       .then(res => {
-        let userCredits = res.data.hoursEarned - res.data.hoursRedeemed;
+        let earned = res.data.hoursEarned;
+        let redeemed = res.data.hoursRedeemed;
+        let userCredits = earned - redeemed;
+        // let redeemedCredits = res.data.hoursRedeemed;
         this.setState({
           credits: userCredits,
-          redeemedTotal: res.data.hoursRedeemed
+          redeemedTotal: redeemed
         });
+        //this is updating in the database but not on the dom.
+        //maybe if I set reemeded hours as a variable using let?
       })
       .catch(err => console.log(err));
   };
@@ -179,9 +184,9 @@ class Incentives extends Component {
                               />
                             </FormGroup>
                             <FormBtn
-                              className='btn blue-btn'
-                              type='submit'
-                              data-dismiss='modal' aria-label='Close'
+                              className="btn blue-btn"
+                              type="submit"
+                              data-dismiss="modal"
                               onClick={this.createIncentive}
                             >
                               Submit
