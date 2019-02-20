@@ -130,10 +130,10 @@ export default {
   },
 
   updateIncentive: function(incentive) {
-    return axios.get("/api/incentives/" + incentive.id, incentive);
+    return axios.put("/api/incentives/" + incentive.id, incentive);
   },
 
   redeemIncentive: function(record) {
     return axios.post("/api/incentivesredeemed", record);
-  }
+  },
 };

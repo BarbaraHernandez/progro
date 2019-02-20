@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { Col, Row, Container } from "../components/Grid";
-import { Card } from "../components/Card";
-import { List, ListItem } from "../components/List";
-import { Navigation } from "../components/Navigation";
-import API from "../utils/API";
-import { Input, FormGroup, Form, FormBtn, Label, TextArea } from "../components/Form";
-import { DropDown, DropDownBtn } from "../components/Buttons";
+import React, { Component } from 'react';
+import { Col, Row, Container } from '../components/Grid';
+import { Card } from '../components/Card';
+import { List, ListItem } from '../components/List';
+import { Navigation } from '../components/Navigation';
+import API from '../utils/API';
+import { Input, FormGroup, Form, FormBtn, Label, TextArea } from '../components/Form';
+import { DropDown, DropDownBtn } from '../components/Buttons';
 
 class Incentives extends Component {
 
@@ -23,31 +23,28 @@ class Incentives extends Component {
 
   componentDidMount() {
     this.loadIncentives();
-    this.loadCredits(this.state.user.id);
-  }
+  };
 
   loadIncentives = () => {
-    API.getIncentives()
+    API
+      .getIncentives()
       .then(res => {
-        // let activeIncentives = res.data.filter(incentive => incentive.Status.description === 'Active');
-        let activeIncentives = res.data;
-        this.setState({
-          incentives: activeIncentives
-         });
+        let activeIncentives = res.data.filter(incentive => incentive.Status.description === 'Available');
+        // let activeIncentives = res.data;
 
+        this.setState({ incentives: activeIncentives });
+        this.loadCredits(this.state.user.id)
       })
       .catch(err => console.log(err));
   };
 
   loadCredits = (userId) => {
-    API.getUser(userId)
+    API
+      .getUser(userId)
       .then(res => {
         let earned = res.data.hoursEarned;
-        console.log("val:" + earned);
         let redeemed = res.data.hoursRedeemed;
-        console.log("val2:" + redeemed);
         let userCredits = earned - redeemed;
-        console.log("val3:" + userCredits);
         // let redeemedCredits = res.data.hoursRedeemed;
         this.setState({
           credits: userCredits,
@@ -59,34 +56,39 @@ class Incentives extends Component {
       .catch(err => console.log(err));
   };
 
-  removeIncentive = (incentiveId) => {
-    API.updateIncentive({
-      id: incentiveId,
-      statusID: 13
-    })
-      .then(res => {
-        this.loadIncentives();
+  removeIncentive = (incentiveID) => {
+    API
+      .updateIncentive({
+        id: incentiveID,
+        statusID: 13
       })
+      .then(() => this.loadIncentives())
       .catch(err => console.log(err));
   };
 
   createIncentive = event => {
     event.preventDefault();
+
     if (this.state.newTitle && this.state.newDescription && this.state.newPrice) {
+      // Add validation to confirm that newprice is a number
+
       let newIncentive = {
         title: this.state.newTitle,
         description: this.state.newDescription,
         price: this.state.newPrice,
         statusID: 12
-      }
-      API.createIncentive(newIncentive)
-        .then(res => this.loadIncentives())
+      };
+
+      API
+        .createIncentive(newIncentive)
+        .then(() => this.loadIncentives())
         .catch(err => console.log(err));
-    }
+    };
   };
 
   handleInputChange = event => {
     const { name, value } = event.target;
+
     this.setState({ [name]: value });
   };
 
@@ -99,21 +101,25 @@ class Incentives extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+
     if (this.state.selected) {
       let record = {
         incentiveID: this.state.selected,
         userID: this.state.user.id
-      }
-      API.redeemIncentive(record)
-        .then(res => {
+      };
+
+      API
+        .redeemIncentive(record)
+        .then(() => {
           let update = {
             id: this.state.user.id,
             hoursRedeemed: this.state.redeemedTotal + this.state.cost
-          }
-          API.updateUser(update)
-        })
-        .then(res => {
-          this.loadCredits(this.state.user.id);
+          };
+
+          API
+            .updateUser(update)
+            .then(() => this.loadCredits())
+            .catch(err => console.log(err));
         })
         .catch(err => console.log(err));
     }
@@ -122,63 +128,62 @@ class Incentives extends Component {
   render() {
     return (
       <div>
-        <Navigation></Navigation>
+        <Navigation />
         <Container fluid>
           <Row>
-            <Col size="md-2">
-            </Col>
-            <Col size="md-8">
-              <div id="incentives-div">
+            <Col size='md-2' />
+            <Col size='md-8'>
+              <div id='incentives-div'>
                 <Card>
-                  {this.state.user.permissionID === (2 || 3) &&
-                    <div className="top-right-drop">
+                  {((this.state.user.permissionID === 2) || (this.state.user.permissionID === 3)) ?
+                    <div className='top-right-drop'>
                       <DropDown>
                         <DropDownBtn
-                          data-toggle="modal"
-                          data-target="#createincentive"
+                          data-toggle='modal'
+                          data-target='#createincentive'
                         >
                           <p>Add New</p>
                         </DropDownBtn>
                       </DropDown>
                     </div>
-                  }
-                  <div className="modal fade" id="createincentive" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog" role="document">
-                      <div className="modal-content">
-                        <div className="modal-header">
-                          <h5 className="modal-title" id="addIncentiveTitle">Add an Incentive</h5>
-                          <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                  : ''}
+                  <div className='modal fade' id='createincentive' tabIndex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                    <div className='modal-dialog' role='document'>
+                      <div className='modal-content'>
+                        <div className='modal-header'>
+                          <h5 className='modal-title' id='addIncentiveTitle'>Add an Incentive</h5>
+                          <button type='button' className='close' data-dismiss='modal' aria-label='Close'>
+                            <span aria-hidden='true'>&times;</span>
                           </button>
                         </div>
-                        <div className="modal-body">
+                        <div className='modal-body'>
                           <Form>
                             <FormGroup>
-                              <Label htmfor="newIncentiveTitle">Incentive</Label>
+                              <Label htmfor='newIncentiveTitle'>Incentive</Label>
                               <Input
-                                type="text"
-                                id="newIncentiveTitle"
-                                name="newTitle"
+                                type='text'
+                                id='newIncentiveTitle'
+                                name='newTitle'
                                 value={this.state.newTitle}
                                 onChange={this.handleInputChange}
-                              ></Input>
-                              <Label htmfor="newIncentivePrice">Price</Label>
+                              />
+                              <Label htmfor='newIncentivePrice'>Price</Label>
                               <Input
-                                type="text"
-                                id="newIncentivePrice"
-                                name="newPrice"
+                                type='text'
+                                id='newIncentivePrice'
+                                name='newPrice'
                                 value={this.state.newPrice}
                                 onChange={this.handleInputChange}
-                              ></Input>
-                              <Label htmfor="newIncentiveDescription">Description</Label>
+                              />
+                              <Label htmfor='newIncentiveDescription'>Description</Label>
                               <TextArea
-                                type="text"
-                                id="newIncentiveDescription"
-                                name="newDescription"
-                                rows="6"
+                                type='text'
+                                id='newIncentiveDescription'
+                                name='newDescription'
+                                rows='6'
                                 value={this.newDescription}
                                 onChange={this.handleInputChange}
-                              ></TextArea>
+                              />
                             </FormGroup>
                             <FormBtn
                               className="btn blue-btn"
@@ -189,9 +194,9 @@ class Incentives extends Component {
                               Submit
                             </FormBtn>
                             {/* <button
-                              type="button"
-                              className="btn btn-secondary"
-                              data-dismiss="modal"
+                              type='button'
+                              className='btn btn-secondary'
+                              data-dismiss='modal'
                             >
                               Close
                             </button> */}
@@ -201,8 +206,8 @@ class Incentives extends Component {
                     </div>
                   </div>
                   <h3>Hours: {this.state.credits} </h3>
-                  <p >Apply your credits by selecting an incentive and hitting submit.</p>
-                  <div id="available-incentives-box">
+                  <p >Apply your credits by selecting an incentive and clicking submit.</p>
+                  <div id='available-incentives-box'>
                     <Form>
                       <FormGroup>
                         {this.state.incentives.length ? (
@@ -210,12 +215,12 @@ class Incentives extends Component {
                             {this.state.incentives.map(incentive => (
                               <ListItem key={incentive.id}>
                                 <Row>
-                                  <Col size="md-6">
-                                    <p className="cost"> Cost: {incentive.price} </p>
+                                  <Col size='md-6'>
+                                    <p className='cost'> Cost: {incentive.price} </p>
                                   </Col>
-                                  <Col size="md-6">
+                                  <Col size='md-6'>
                                     <div>
-                                      {this.state.user.permissionID === (2 || 3) &&
+                                      {((this.state.user.permissionID === 2) || (this.state.user.permissionID === 3)) ?
                                         <DropDown>
                                           {/* <DropDownBtn
                                           // needs edit modal
@@ -233,25 +238,25 @@ class Incentives extends Component {
                                             <p>See History</p>
                                           </DropDownBtn> */}
                                         </DropDown>
-                                      }
+                                      : ''}
                                     </div>
                                   </Col>
                                 </Row>
-                                <div className="main-content">
-                                  <div className="incentive-title">
+                                <div className='main-content'>
+                                  <div className='incentive-title'>
                                     <h2> {incentive.title} </h2>
                                   </div>
-                                  <p className="incentive-details"> {incentive.description} </p>
+                                  <p className='incentive-details'> {incentive.description} </p>
                                 </div>
-                                <div className="form-check select-area">
-                                  <p className="check-label">select</p>
+                                <div className='form-check select-area'>
+                                  <p className='check-label'>select</p>
                                   <Input
-                                    className="form-check-input position-static"
-                                    type="checkbox"
-                                    name="selected"
+                                    className='form-check-input position-static'
+                                    type='checkbox'
+                                    name='selected'
                                     id={incentive.id}
                                     value={this.state.selected}
-                                    aria-label="select this"
+                                    aria-label='select this'
                                     // onChange={() => this.handleInputChange}
                                     onClick={() => this.handleSelect(incentive)}
                                   />
@@ -260,12 +265,13 @@ class Incentives extends Component {
                             ))}
                           </List>
                         ) : (
-                            <h3 className="none-listed">There are no incentives currently available.</h3>
+                            <h3 className='none-listed'>There are no incentives currently available.</h3>
                           )}
                       </FormGroup>
                       <FormBtn
-                        className="btn blue-btn card-item-submit"
-                        type="submit"
+                        className='btn blue-btn card-item-submit'
+                        type='submit'
+                        data-dismiss='modal'
                         onClick={this.handleSubmit}
                       >
                         Submit
