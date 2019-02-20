@@ -28,6 +28,7 @@ passport.use(
               message: 'Email is already registered',
             });
           }
+
           bcrypt.hash(password, BCRYPT_SALT_ROUNDS).then((hashedPassword) => {
             db.User.create({
               email: username,
@@ -35,10 +36,7 @@ passport.use(
               firstName: req.body.firstName,
               lastName: req.body.lastName,
               permissionID: 1,
-            }).then((createdUser) => {
-              console.log('User sucessfully created');
-              return done(null, createdUser);
-            });
+            }).then(createdUser => done(null, createdUser));
           });
         });
       } catch (err) {
