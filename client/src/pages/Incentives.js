@@ -43,7 +43,6 @@ class Incentives extends Component {
       .getUser(userId)
       .then(res => {
         let userCredits = res.data.hoursEarned - res.data.hoursRedeemed;
-
         this.setState({
           credits: userCredits,
           redeemedTotal: res.data.hoursRedeemed
@@ -199,7 +198,7 @@ class Incentives extends Component {
                       </div>
                     </div>
                   </div>
-                  <h3>Hours: {this.credits} </h3>
+                  <h3>Hours: {this.state.credits} </h3>
                   <p >Apply your credits by selecting an incentive and clicking submit.</p>
                   <div id="available-incentives-box">
                     <Form>
@@ -226,11 +225,11 @@ class Incentives extends Component {
                                           >
                                             <p>Remove</p>
                                           </DropDownBtn>
-                                          <DropDownBtn
+                                          {/* <DropDownBtn
                                           // needs on click to render all redeemed
                                           >
                                             <p>See History</p>
-                                          </DropDownBtn>
+                                          </DropDownBtn> */}
                                         </DropDown>
                                       : ''}
                                     </div>
@@ -249,8 +248,9 @@ class Incentives extends Component {
                                     type="checkbox"
                                     name="selected"
                                     id={incentive.id}
-                                    value={incentive.id}
+                                    value={this.state.selected}
                                     aria-label="select this"
+                                    // onChange={() => this.handleInputChange}
                                     onClick={() => this.handleSelect(incentive)}
                                   />
                                 </div>
