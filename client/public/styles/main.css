@@ -19,6 +19,10 @@ body .blue-btn:hover {
   transition: background-color .15s ease-in-out;
 }
 
+body .btn-spacer {
+  margin: 0 .5rem;
+}
+
 body .outline-blue-btn {
   background-color: white;
   border-style: solid;
