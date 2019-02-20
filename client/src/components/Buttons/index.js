@@ -68,7 +68,7 @@ export function DropDown(props) {
 export function DropDownBtn(props) {
   return (
   /*<span className="dropdown-item" data-toggle="modal" data-target="#editModal">edit</span>*/
-    <span className="dropdown-item" {...props}>{props.children}</span>
+    <button className="dropdown-item dropped-item" {...props}>{props.children}</button>
   );
 }
 

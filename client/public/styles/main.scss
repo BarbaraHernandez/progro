@@ -89,6 +89,10 @@ body {
         border-radius: .25rem !important;
     }
 
+    .dropped-item:hover {
+        background-color: color(neutral);
+    }
+
     .nav-logo {
         width: 1.5rem;
         margin-right: .5rem;

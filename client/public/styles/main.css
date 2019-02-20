@@ -56,6 +56,10 @@ body .my-list-item {
   border-radius: .25rem !important;
 }
 
+body .dropped-item:hover {
+  background-color: #e6eae9;
+}
+
 body .nav-logo {
   width: 1.5rem;
   margin-right: .5rem;
