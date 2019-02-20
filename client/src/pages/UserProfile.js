@@ -202,7 +202,7 @@ class UserProfile extends Component {
                         <div id="project-box">
                           <List>
                             {this.state.roles.map(role => (
-                              role.statusID == 7 && (
+                              role.statusID === 7 && (
                                 <ListItem key={role.Project.id}>
                                   <Link to={`/projects/${role.Project.id}`}>
                                     <h2>
@@ -221,7 +221,7 @@ class UserProfile extends Component {
                       </div>
                     </Col>
                   </Row>
-                  {this.state.user.id == this.state.id &&
+                  {this.state.user.id === this.state.id &&
                     <>
                       <Row>
                         <Col size="lg-12 md-12">

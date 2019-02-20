@@ -42,12 +42,19 @@ class Incentives extends Component {
   loadCredits = (userId) => {
     API.getUser(userId)
       .then(res => {
-        let userCredits = res.data.hoursEarned - res.data.hoursRedeemed;
-        console.log("credits: " + userCredits);
+        let earned = res.data.hoursEarned;
+        console.log("val:" + earned);
+        let redeemed = res.data.hoursRedeemed;
+        console.log("val2:" + redeemed);
+        let userCredits = earned - redeemed;
+        console.log("val3:" + userCredits);
+        // let redeemedCredits = res.data.hoursRedeemed;
         this.setState({
           credits: userCredits,
-          redeemedTotal: res.data.hoursRedeemed
+          redeemedTotal: redeemed
         });
+        //this is updating in the database but not on the dom.
+        //maybe if I set reemeded hours as a variable using let?
       })
       .catch(err => console.log(err));
   };
@@ -94,20 +101,19 @@ class Incentives extends Component {
     event.preventDefault();
     if (this.state.selected) {
       let record = {
-        incentiveId: this.state.selected,
-        userID: this.state.user
+        incentiveID: this.state.selected,
+        userID: this.state.user.id
       }
       API.redeemIncentive(record)
         .then(res => {
           let update = {
             id: this.state.user.id,
-            hoursRedeemed: this.redeemedTotal + this.cost
+            hoursRedeemed: this.state.redeemedTotal + this.state.cost
           }
-          console.log(this.state.user.id);
           API.updateUser(update)
         })
         .then(res => {
-          this.loadCredits();
+          this.loadCredits(this.state.user.id);
         })
         .catch(err => console.log(err));
     }
@@ -124,7 +130,7 @@ class Incentives extends Component {
             <Col size="md-8">
               <div id="incentives-div">
                 <Card>
-                  {this.state.user.permissionID == (2 || 3) &&
+                  {this.state.user.permissionID === (2 || 3) &&
                     <div className="top-right-drop">
                       <DropDown>
                         <DropDownBtn
@@ -177,6 +183,7 @@ class Incentives extends Component {
                             <FormBtn
                               className="btn blue-btn"
                               type="submit"
+                              data-dismiss="modal"
                               onClick={this.createIncentive}
                             >
                               Submit
@@ -208,7 +215,7 @@ class Incentives extends Component {
                                   </Col>
                                   <Col size="md-6">
                                     <div>
-                                      {this.state.user.permissionID == (2 || 3) &&
+                                      {this.state.user.permissionID === (2 || 3) &&
                                         <DropDown>
                                           {/* <DropDownBtn
                                           // needs edit modal
