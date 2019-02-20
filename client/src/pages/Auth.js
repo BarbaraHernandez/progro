@@ -27,7 +27,7 @@ class Register extends Component {
   };
 
   handleFormChange = event => {
-    this.setState({ register: event })
+    this.setState({ message: '', register: event })
   };
 
   handleRegisterUser = event => {
@@ -56,7 +56,18 @@ class Register extends Component {
           updatedAt: Date.now()
         })
         .then(res => {
-          this.setState({ message: res.data.message });
+          //this.setState({ success: true, message: res.data.message });
+          API
+            .loginUser({
+              username: this.state.email,
+              password: this.state.password,
+            })
+            .then(() => {
+              this.setState({ success: true });
+            })
+            .catch(error => {
+              this.setState({ message: error.response.data.message });
+            });
         })
         .catch(error => {
           this.setState({ message: error.response.data.message });
