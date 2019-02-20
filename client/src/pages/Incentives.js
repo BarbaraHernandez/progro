@@ -57,7 +57,6 @@ class Incentives extends Component {
   };
 
   removeIncentive = (incentiveID) => {
-    console.log(incentiveID);
     API
       .updateIncentive({
         id: incentiveID,
