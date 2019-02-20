@@ -29,8 +29,8 @@ class Incentives extends Component {
     API
       .getIncentives()
       .then(res => {
-        // let activeIncentives = res.data.filter(incentive => incentive.Status.description === 'Active');
-        let activeIncentives = res.data;
+        let activeIncentives = res.data.filter(incentive => incentive.Status.description === 'Available');
+        // let activeIncentives = res.data;
 
         this.setState({ incentives: activeIncentives });
         this.loadCredits(this.state.user.id)
@@ -56,10 +56,11 @@ class Incentives extends Component {
       .catch(err => console.log(err));
   };
 
-  removeIncentive = (incentiveId) => {
+  removeIncentive = (incentiveID) => {
+    console.log(incentiveID);
     API
       .updateIncentive({
-        id: incentiveId,
+        id: incentiveID,
         statusID: 13
       })
       .then(() => this.loadIncentives())
@@ -70,6 +71,8 @@ class Incentives extends Component {
     event.preventDefault();
 
     if (this.state.newTitle && this.state.newDescription && this.state.newPrice) {
+      // Add validation to confirm that newprice is a number
+
       let newIncentive = {
         title: this.state.newTitle,
         description: this.state.newDescription,
