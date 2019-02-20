@@ -1,7 +1,7 @@
-import React from "react";
-import { Col, Row, Container } from "../components/Grid";
-import Jumbotron from "../components/Jumbotron";
-import { Navigation } from "../components/Navigation";
+import React from 'react';
+import { Col, Row, Container } from '../components/Grid';
+import Jumbotron from '../components/Jumbotron';
+import { Navigation } from '../components/Navigation';
 
 function NoMatch() {
   return (
@@ -9,11 +9,11 @@ function NoMatch() {
       <Navigation ></Navigation>
       <Container fluid>
         <Row>
-          <Col size="md-12">
+          <Col size='md-12'>
             <Jumbotron>
               <h1>404 Page Not Found</h1>
               <h1>
-                <span role="img" aria-label="Face With Rolling Eyes Emoji">
+                <span role='img' aria-label='Face With Rolling Eyes Emoji'>
                   🙄
               </span>
               </h1>

@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { Col, Row, Container } from "../components/Grid";
-import { Card } from "../components/Card";
-import { List, ListItem } from "../components/List";
-import { Navigation } from "../components/Navigation";
-import API from "../utils/API";
-import { Input, FormGroup, Form, FormBtn, Label, TextArea } from "../components/Form";
-import { DropDown, DropDownBtn } from "../components/Buttons";
+import React, { Component } from 'react';
+import { Col, Row, Container } from '../components/Grid';
+import { Card } from '../components/Card';
+import { List, ListItem } from '../components/List';
+import { Navigation } from '../components/Navigation';
+import API from '../utils/API';
+import { Input, FormGroup, Form, FormBtn, Label, TextArea } from '../components/Form';
+import { DropDown, DropDownBtn } from '../components/Buttons';
 
 class Incentives extends Component {
 
@@ -124,72 +124,72 @@ class Incentives extends Component {
         <Navigation />
         <Container fluid>
           <Row>
-            <Col size="md-2" />
-            <Col size="md-8">
-              <div id="incentives-div">
+            <Col size='md-2' />
+            <Col size='md-8'>
+              <div id='incentives-div'>
                 <Card>
                   {((this.state.user.permissionID === 2) || (this.state.user.permissionID === 3)) ?
-                    <div className="top-right-drop">
+                    <div className='top-right-drop'>
                       <DropDown>
                         <DropDownBtn
-                          data-toggle="modal"
-                          data-target="#createincentive"
+                          data-toggle='modal'
+                          data-target='#createincentive'
                         >
                           <p>Add New</p>
                         </DropDownBtn>
                       </DropDown>
                     </div>
                   : ''}
-                  <div className="modal fade" id="createincentive" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog" role="document">
-                      <div className="modal-content">
-                        <div className="modal-header">
-                          <h5 className="modal-title" id="addIncentiveTitle">Add an Incentive</h5>
-                          <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                  <div className='modal fade' id='createincentive' tabIndex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                    <div className='modal-dialog' role='document'>
+                      <div className='modal-content'>
+                        <div className='modal-header'>
+                          <h5 className='modal-title' id='addIncentiveTitle'>Add an Incentive</h5>
+                          <button type='button' className='close' data-dismiss='modal' aria-label='Close'>
+                            <span aria-hidden='true'>&times;</span>
                           </button>
                         </div>
-                        <div className="modal-body">
+                        <div className='modal-body'>
                           <Form>
                             <FormGroup>
-                              <Label htmfor="newIncentiveTitle">Incentive</Label>
+                              <Label htmfor='newIncentiveTitle'>Incentive</Label>
                               <Input
-                                type="text"
-                                id="newIncentiveTitle"
-                                name="newTitle"
+                                type='text'
+                                id='newIncentiveTitle'
+                                name='newTitle'
                                 value={this.state.newTitle}
                                 onChange={this.handleInputChange}
                               />
-                              <Label htmfor="newIncentivePrice">Price</Label>
+                              <Label htmfor='newIncentivePrice'>Price</Label>
                               <Input
-                                type="text"
-                                id="newIncentivePrice"
-                                name="newPrice"
+                                type='text'
+                                id='newIncentivePrice'
+                                name='newPrice'
                                 value={this.state.newPrice}
                                 onChange={this.handleInputChange}
                               />
-                              <Label htmfor="newIncentiveDescription">Description</Label>
+                              <Label htmfor='newIncentiveDescription'>Description</Label>
                               <TextArea
-                                type="text"
-                                id="newIncentiveDescription"
-                                name="newDescription"
-                                rows="6"
+                                type='text'
+                                id='newIncentiveDescription'
+                                name='newDescription'
+                                rows='6'
                                 value={this.newDescription}
                                 onChange={this.handleInputChange}
                               />
                             </FormGroup>
                             <FormBtn
-                              className="btn blue-btn"
-                              type="submit"
-                              data-dismiss="modal" aria-label="Close"
+                              className='btn blue-btn'
+                              type='submit'
+                              data-dismiss='modal' aria-label='Close'
                               onClick={this.createIncentive}
                             >
                               Submit
                             </FormBtn>
                             {/* <button
-                              type="button"
-                              className="btn btn-secondary"
-                              data-dismiss="modal"
+                              type='button'
+                              className='btn btn-secondary'
+                              data-dismiss='modal'
                             >
                               Close
                             </button> */}
@@ -200,7 +200,7 @@ class Incentives extends Component {
                   </div>
                   <h3>Hours: {this.state.credits} </h3>
                   <p >Apply your credits by selecting an incentive and clicking submit.</p>
-                  <div id="available-incentives-box">
+                  <div id='available-incentives-box'>
                     <Form>
                       <FormGroup>
                         {this.state.incentives.length ? (
@@ -208,10 +208,10 @@ class Incentives extends Component {
                             {this.state.incentives.map(incentive => (
                               <ListItem key={incentive.id}>
                                 <Row>
-                                  <Col size="md-6">
-                                    <p className="cost"> Cost: {incentive.price} </p>
+                                  <Col size='md-6'>
+                                    <p className='cost'> Cost: {incentive.price} </p>
                                   </Col>
-                                  <Col size="md-6">
+                                  <Col size='md-6'>
                                     <div>
                                       {((this.state.user.permissionID === 2) || (this.state.user.permissionID === 3)) ?
                                         <DropDown>
@@ -235,21 +235,21 @@ class Incentives extends Component {
                                     </div>
                                   </Col>
                                 </Row>
-                                <div className="main-content">
-                                  <div className="incentive-title">
+                                <div className='main-content'>
+                                  <div className='incentive-title'>
                                     <h2> {incentive.title} </h2>
                                   </div>
-                                  <p className="incentive-details"> {incentive.description} </p>
+                                  <p className='incentive-details'> {incentive.description} </p>
                                 </div>
-                                <div className="form-check select-area">
-                                  <p className="check-label">select</p>
+                                <div className='form-check select-area'>
+                                  <p className='check-label'>select</p>
                                   <Input
-                                    className="form-check-input position-static"
-                                    type="checkbox"
-                                    name="selected"
+                                    className='form-check-input position-static'
+                                    type='checkbox'
+                                    name='selected'
                                     id={incentive.id}
                                     value={this.state.selected}
-                                    aria-label="select this"
+                                    aria-label='select this'
                                     // onChange={() => this.handleInputChange}
                                     onClick={() => this.handleSelect(incentive)}
                                   />
@@ -258,14 +258,14 @@ class Incentives extends Component {
                             ))}
                           </List>
                         ) : (
-                            <h3 className="none-listed">There are no incentives currently available.</h3>
+                            <h3 className='none-listed'>There are no incentives currently available.</h3>
                           )}
                       </FormGroup>
                       <FormBtn
-                        className="btn blue-btn card-item-submit"
-                        type="submit"
-                        data-dismiss="modal"
-                        aria-label="Close"
+                        className='btn blue-btn card-item-submit'
+                        type='submit'
+                        data-dismiss='modal'
+                        aria-label='Close'
                         onClick={this.handleSubmit}
                       >
                         Submit

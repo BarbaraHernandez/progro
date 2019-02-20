@@ -6,7 +6,7 @@ import {
   Redirect,
   BrowserRouter as Router
 } from 'react-router-dom'
-import NoMatch from "../../pages/NoMatch";
+import NoMatch from '../../pages/NoMatch';
 import Dashboard from '../../pages/Dashboard';
 import Ideas from '../../pages/Idea';
 import LiveProjects from '../../pages/LiveProjects';
@@ -14,7 +14,7 @@ import ProjectDetail from '../../pages/ProjectDetail';
 import UserProfile from '../../pages/UserProfile';
 import Incentives from '../../pages/Incentives';
 import Auth from '../../pages/Auth';
-import API from "../../utils/API";
+import API from '../../utils/API';
 
 
 class PrivateRoute extends React.Component {
@@ -44,7 +44,6 @@ class PrivateRoute extends React.Component {
   authenticate() {
     API.authenticateUser()
     .then(res => {
-      console.log(res.data);
       this.setState({
         loaded: true,
         isAuthenticated: res.data.auth,
@@ -53,7 +52,6 @@ class PrivateRoute extends React.Component {
       });
     })
     .catch(err => {
-      console.log(err);
       // set state w/ message
       this.props.history.push('/')
     });
@@ -78,7 +76,7 @@ class PrivateRoute extends React.Component {
           ) : (
             <Redirect
               to={{
-                pathname: "/",
+                pathname: '/',
               }}
             />
           )
@@ -93,19 +91,19 @@ PrivateRoute = withRouter(PrivateRoute)
 const Routes = () => (
   <Router>
     <Switch>
-      <Route exact path="/" component={Auth} />
-      <PrivateRoute exact path="/home" component={Dashboard} />
-      <PrivateRoute exact path="/ideas" component={Ideas} />
-      {/* <Route exact path="/ideas/:id" component={Detail} /> */}
-      <PrivateRoute exact path="/projects" component={LiveProjects} />
-      <PrivateRoute exact path="/projects/:id" component={ProjectDetail} />
-      <PrivateRoute exact path="/incentives" component={Incentives} />
-      <PrivateRoute exact path="/profile/:id?" component={UserProfile} />
+      <Route exact path='/' component={Auth} />
+      <PrivateRoute exact path='/home' component={Dashboard} />
+      <PrivateRoute exact path='/ideas' component={Ideas} />
+      {/* <Route exact path='/ideas/:id' component={Detail} /> */}
+      <PrivateRoute exact path='/projects' component={LiveProjects} />
+      <PrivateRoute exact path='/projects/:id' component={ProjectDetail} />
+      <PrivateRoute exact path='/incentives' component={Incentives} />
+      <PrivateRoute exact path='/profile/:id?' component={UserProfile} />
       {/* <PrivateRoute
         path='/projects/:id'
         render={() => <ProjectDetail user={this.state.user} />}
       /> */}
-      {/* <Route exact path="/profile/:id" component={UserProfile} /> */}
+      {/* <Route exact path='/profile/:id' component={UserProfile} /> */}
       <Route component={NoMatch} />
     </Switch>
   </Router>
