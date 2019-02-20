@@ -3,7 +3,6 @@ import { Col, Row, Container } from "../components/Grid";
 import { Card } from "../components/Card";
 import { Input, Button, FormGroup, Form, FormBtn, Label, TextArea } from "../components/Form";
 import { VoteUpBtn, DropDownBtn, DropDown, VoteDownBtn } from "../components/Buttons";
-// import { VoteUpBtn, ApproveBtn } from "../components/Buttons";
 import { List, ListItem } from "../components/List";
 import { Navigation } from "../components/Navigation";
 import API from "../utils/API";
@@ -37,10 +36,10 @@ class Ideas extends Component {
       .then(res => {
         let votes = [];
 
-        // Map res array
-        res.data.map(idea => {
-          //filter IdeaVotes array
-          idea.IdeaVotes.filter(vote => {
+        // Loop through data
+        res.data.forEach(idea => {
+          // Loop through idea votes
+          idea.IdeaVotes.forEach(vote => {
             // Only get the ideaID's that the authenticated user has voted on
             if (vote.userID === this.state.user.id) {
               votes.push(vote.ideaID)
@@ -53,7 +52,7 @@ class Ideas extends Component {
           title: '',
           description: '',
           votes
-        })
+        });
       })
       .catch(err => console.log(err));
   };
@@ -66,87 +65,99 @@ class Ideas extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-        if (this.state.title && this.state.description) {
-          API.submitIdea({
-            title: this.state.title,
-            description: this.state.description,
-            ownerID: this.state.user.id
-          })
-          .then(res => this.loadIdeas())
-          .catch(err => console.log(err));
-        }
+
+    if (this.state.title && this.state.description) {
+      API
+        .submitIdea({
+          title: this.state.title,
+          description: this.state.description,
+          ownerID: this.state.user.id
+        })
+        .then(() => this.loadIdeas())
+        .catch(err => console.log(err));
+    }
   };
 
   approveIdea = idea => {
-    API.updateIdea({
-      id: idea.id,
-      endorsed: true
-    })
-      .then(res => this.convertIdea(idea))
-      .then(res => this.loadIdeas())
+    API
+      .updateIdea({
+        id: idea.id,
+        endorsed: true
+      })
+      .then(() => this.convertIdea(idea))
       .catch(err => console.log(err));
   };
 
   convertIdea = idea => {
-    API.createProject({
-      title: idea.title,
-      description: idea.description,
-      ownerID: idea.ownerID
-    })
+    API
+      .createProject({
+        title: idea.title,
+        description: idea.description,
+        ownerID: idea.ownerID
+      })
+      .then(() => this.loadIdeas())
       .catch(err => console.log(err));
-  }
+  };
 
   deleteIdea = idea => {
-    API.deleteIdea({
-      id: idea.id
-    })
-      .then(res => this.loadIdeas())
+    API
+      .deleteIdea({ id: idea.id })
+      .then(() => this.loadIdeas())
       .catch(err => console.log(err));
-  }
+  };
 
   setEditID = (editID) => {
     this.setState({ editID });
-  }
+  };
 
   editIdea = event => {
     event.preventDefault();
+
     if (this.state.editTitle && this.state.editDescription) {
       let update = {
         id: this.state.editID,
         title: this.state.editTitle,
         description: this.state.editDescription
-      }
-      API.updateIdea(update)
-      .then(res => this.loadIdeas())
-      .catch(err => console.log(err));
-    }
+      };
+
+      API
+        .updateIdea(update)
+        .then(() => this.loadIdeas())
+        .catch(err => console.log(err));
+    };
+
     if (this.state.editTitle) {
       let update = {
         id: this.state.editID,
         title: this.state.editTitle
-      }
-      API.updateIdea(update)
-      .then(res => this.loadIdeas())
-      .catch(err => console.log(err));
-    }
+      };
+
+      API
+        .updateIdea(update)
+        .then(() => this.loadIdeas())
+        .catch(err => console.log(err));
+    };
+
     if (this.state.editDescription) {
       let update = {
         id: this.state.editID,
         description: this.state.editDescription
-      }
-      API.updateIdea(update)
-      .then(res => this.loadIdeas())
-      .catch(err => console.log(err));
-    }
+      };
 
-  }
+      API
+        .updateIdea(update)
+        .then(() => this.loadIdeas())
+        .catch(err => console.log(err));
+    };
+  };
 
   upvote = idea => {
     //Upvote an idea
-    API.updateIdea({
-      id: idea.id,
-      voteCount: idea.voteCount + 1
-    })
+    API
+      .updateIdea({
+        id: idea.id,
+        voteCount: idea.voteCount + 1
+      })
       .then(res => {
         // Add userID and ideaID to IdeaVotes table
         API
@@ -158,10 +169,11 @@ class Ideas extends Component {
   };
 
   downvote = idea => {
-    API.updateIdea({
-      id: idea.id,
-      voteCount: idea.voteCount - 1
-    })
+    API
+      .updateIdea({
+        id: idea.id,
+        voteCount: idea.voteCount - 1
+      })
       .then(res => {
         // Add userID and ideaID to IdeaVotes table
         API
@@ -250,15 +262,15 @@ class Ideas extends Component {
                         </div>
                         <h2> {idea.title}</h2>
                         <p> {idea.description} </p>
-                        {((this.state.user.permissionID === (2 || 3)) || (this.state.user.id === idea.ownerID)) &&
+                        {((this.state.user.permissionID === 2) || (this.state.user.permissionID === 3) ||                 (this.state.user.id === idea.ownerID)) ?
                           <DropDown>
-                            {this.state.user.permissionID === (2 || 3) &&
+                            {((this.state.user.permissionID === 2) || (this.state.user.permissionID === 3)) ?
                               <DropDownBtn
                                 onClick={() => this.approveIdea(idea)}
                               >
-                              <p>Approve</p>
+                                <p>Approve</p>
                               </DropDownBtn>
-                            }
+                            : ''}
                             {/*
                             <DropDownBtn
                               data-toggle="modal"
@@ -267,15 +279,15 @@ class Ideas extends Component {
                             <p>Edit</p>
                             </DropDownBtn>
                             */}
-                            {this.state.user.id === idea.ownerID &&
+                            {(this.state.user.id === idea.ownerID) ?
                               <DropDownBtn
                                 onClick={() => this.deleteIdea(idea)}
                               >
-                              <p>Delete</p>
+                                <p>Delete</p>
                               </DropDownBtn>
-                            }
+                            : ''}
                           </DropDown>
-                        }
+                        : ''}
                         <div className="modal fade" id="editIdea" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div className="modal-dialog" role="document">
                               <div className="modal-content">
