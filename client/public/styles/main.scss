@@ -18,6 +18,7 @@ $colors: (
 
 $mobile: 900px;
 $phone: 480px;
+$shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
 
 @mixin mobile {
     @media (max-width: #{$mobile}) {
@@ -50,6 +51,10 @@ body {
     .blue-btn:hover {
         background-color: color(accent-dark);
         transition: background-color .15s ease-in-out;
+    }
+
+    .btn-spacer {
+        margin: 0 .5rem;
     }
 
     .outline-blue-btn {
@@ -111,9 +116,11 @@ body {
         }
     }
 
+    // Login area
+
     #login-card {
         margin: 7rem auto 4rem auto;
-        box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+        box-shadow: $shadow;
         border-radius: .25rem;
 
     #login-head {
@@ -142,7 +149,7 @@ body {
     #dash-card {
         margin: 3rem auto 4rem auto;
         text-align: center;
-        box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+        box-shadow: $shadow;
         border-radius: .25rem;
 
         th {
@@ -158,6 +165,8 @@ body {
                 font-size: .75rem;
             }
         }
+
+        // Profile Area
 
         #profile-info-div {
             position: relative;
@@ -185,15 +194,6 @@ body {
                 margin: 2rem;
                 color: color(secondary);
             }
-
-            // .my-position {
-            //     font-weight: 450;
-            //     color: color(secondary);
-            //     width: 15rem;
-            //     position: absolute;
-            //     bottom: 5rem;
-            //     background-color: white;
-            // }
             .user-name-box {
                 background-color: color(tertiary);
                 border-radius: 50%;
@@ -243,9 +243,11 @@ body {
         }
     }
 
+    // Ideas Area
+
     #new-idea-div {
         margin: 3rem auto 1rem auto;
-        box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+        box-shadow: $shadow;
         border-radius: .25rem;
         #subtext-blue {
             color: color(accent);
@@ -256,7 +258,7 @@ body {
 
     #ideas-div {
         margin: 0 auto 4rem auto;
-        box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+        box-shadow: $shadow;
         border-radius: .25rem;
 
         .vote-block {
@@ -282,7 +284,7 @@ body {
 
     #projects-div {
         margin: 3rem auto 4rem auto;
-        box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+        box-shadow: $shadow;
         border-radius: 15px;
 
         h1 {
@@ -308,9 +310,11 @@ body {
         }
     }
 
+    // Project Detail Area
+
     #project-detail-div {
         margin: 3rem auto 4rem auto;
-        box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+        box-shadow: $shadow;
         border-radius: .25rem;
 
         h1 {
@@ -423,9 +427,11 @@ body {
         }
     }
 
+    // Incentives Area
+
     #incentives-div {
         margin: 3rem auto 4rem auto;
-        box-shadow: 0 10px 30px rgba(2, 26, 12, 0.1);
+        box-shadow: $shadow;
         border-radius: 15px;
 
         h2 {
