@@ -32,24 +32,25 @@ class Register extends Component {
 
   handleRegisterUser = event => {
     event.preventDefault();
+
     if (
-          this.state.firstName === '' ||
-          this.state.lastName === '' ||
-          this.state.email === '' ||
-          this.state.password === ''
-        ) {
-          this.setState({
-            message: "Please populate all fields"
-          });
-        }
-        else {
-          API.registerUser({
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            email: this.state.email,
-            username: this.state.email,
-            password: this.state.password
-          })
+      this.state.firstName === '' ||
+      this.state.lastName === '' ||
+      this.state.email === '' ||
+      this.state.password === ''
+    ) {
+      this.setState({
+        message: "Please populate all fields"
+      });
+    } else {
+      API
+        .registerUser({
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
+          email: this.state.email,
+          username: this.state.email,
+          password: this.state.password
+        })
         .then(res => {
           // console.log(res.data);
           this.setState({ message: res.data.message });
@@ -63,6 +64,7 @@ class Register extends Component {
 
   handleLoginUser = event => {
     event.preventDefault();
+
     if (
       this.state.email === '' ||
       this.state.password === ''
@@ -70,23 +72,19 @@ class Register extends Component {
       this.setState({
         message: "Please populate all fields"
       });
-    }
-    else {
-      API.loginUser({
-        username: this.state.email,
-        password: this.state.password,
-      })
+    } else {
+      API
+        .loginUser({
+          username: this.state.email,
+          password: this.state.password,
+        })
         .then(res => {
-          console.log(res.data);
-          this.setState({
-            success: true,
-          });
+          this.setState({ success: true });
         })
         .catch(error => {
-          console.log(error.response.data.message);
           this.setState({ message: error.response.data.message });
         });
-    }
+    };
   };
 
   render() {
@@ -104,7 +102,7 @@ class Register extends Component {
               <h2>Take Initiative.</h2>
             </div>
             {this.state.success ? (
-              <Redirect to="/ideas" />
+              <Redirect to="/profile" />
             ) : (
                 <Form onSubmit={this.state.register ? this.handleRegisterUser : this.handleLoginUser}>
                   {this.state.message &&
