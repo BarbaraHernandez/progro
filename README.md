@@ -51,8 +51,8 @@ To see the manager view, update the permissionID of the account to a 2.
 * bootstrap
 
 ## Development Team:
-[Barbara Hernandez](https://github.com/BarbaraHernandez/) - Build Manager
-[Nadine Hernandez](https://github.com/NadineHernandez) - Front-End UX/UI
-[Chris Human](https://github.com/chrishuman0923) - Database Engineer
-[Johnny King](https://github.com/JohnKing93) - Project Manager
+* [Barbara Hernandez](https://github.com/BarbaraHernandez/) - Build Manager
+* [Nadine Hernandez](https://github.com/NadineHernandez) - Front-End UX/UI
+* [Chris Human](https://github.com/chrishuman0923) - Database Engineer
+* [Johnny King](https://github.com/JohnKing93) - Project Manager
 
