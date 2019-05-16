@@ -73,6 +73,21 @@ body .bottom-art {
   z-index: -1;
 }
 
+body .footer-p {
+  margin-top: 6rem;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+body .contrast-link {
+  color: #bbf18f;
+}
+
+body .contrast-link:hover,
+body .contrast-link:visited {
+  color: #6addf1;
+}
+
 body #login-logo {
   width: 3.5rem;
   position: fixed;

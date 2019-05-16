@@ -106,6 +106,21 @@ body {
         z-index: -1;
     }
 
+    .footer-p {
+      margin-top: 6rem;
+      margin-bottom: 0;
+      text-align: center;
+    }
+
+    .contrast-link {
+      color: #bbf18f;
+    }
+
+    .contrast-link:hover,
+    .contrast-link:visited {
+      color:#6addf1
+    }
+
     #login-logo {
         width: 3.5rem;
         position: fixed;

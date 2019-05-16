@@ -183,7 +183,9 @@ class Register extends Component {
               </div>
           </Col>
         </Row>
-        <img className='bottom-art' src='images/progrobg.png' alt='decorative background'></img>
+        <div>
+          <img className='bottom-art' src='images/progrobg.png' alt='decorative background'></img>
+          <p className='footer-p'>Visit <a className='contrast-link' href='https://github.com/BarbaraHernandez/progro/#readme'>GitHub</a> for More Information</p></div>
       </Container>
     );
   }
