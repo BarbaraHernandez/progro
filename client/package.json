@@ -30,7 +30,7 @@
   "dependencies": {
     "@types/react": "^16.7.20",
     "@types/react-dom": "^16.0.11",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-grid-system": "^4.4.2",
